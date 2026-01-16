@@ -5,7 +5,7 @@ on:
   schedule:                  
    - cron: "0 8 * * *"                                       
   push:                             
-   braches: 
+   branches: 
     - main 
   pull_request:                         
 
@@ -22,7 +22,8 @@ jobs:
 
  test:                                                
   runs-on: ubuntu-latest          
-  name: Cypress Test job      
+  name: Cypress Test job 
+  needs: build     
   container:         
    image: cypress/base:latest      
   steps:                                                                                 
@@ -35,10 +36,10 @@ jobs:
       node-version: 18      
 
    - name: Install dependencies        
-     uses: npm install                    
+     run: npm install                    
 
    - name: Run Cypress tests      
-     uses: npx cypress run                
+     run: npx cypress run                
 
    - name: UploadCypress videos             
      if: always()      
@@ -54,4 +55,4 @@ jobs:
      with:      
       name: cypress-screenshots      
       path: cypress/screenshots/**/*.mp4      
-      retention-days: 1      
+      retention-days: 1
