@@ -1,0 +1,11 @@
+config:
+  target: "http://httpbin.org/"
+  phases:
+    - duration: 1 
+      arrivalRate: 1
+      name: Goit Performance Test  
+scenarios:              
+  - name: Get a resource       
+    flow:                          
+      - get:                       
+          url: "{{ target }}get"                    

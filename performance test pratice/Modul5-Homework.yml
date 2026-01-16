@@ -1,0 +1,44 @@
+config:
+  target: "https://jsonplaceholder.typicode.com"
+  phases:
+    - duration: 10
+      arrivalRate: 2
+      name: Homework Performance Test
+
+  plugins:
+    ensure:
+      thresholds:
+        http.response_time.max: 1500
+        http.response_time.2xx.p99: 600
+        http.requests: 1
+
+  payload:
+    -
+      path: "Homework.csv"        
+      fields:
+        - "keyword1"
+        - "keyword2"          
+      order: sequence    
+
+
+scenarios:
+  - name: GET and POST with CSV payload
+    flow:
+      - get:
+          url: "/posts?param1={{ keyword1 }}"
+
+      - post:
+          url: "/posts?param2={{ keyword2 }}"
+          json:
+            title: "foo"
+            body: "bar"
+            userId: 1
+          headers:
+            Content-Type: "application/json; charset=UTF-8"
+          capture:
+            - json: "$.id"
+              as: "postId"
+
+      - log: "Created post id: {{ postId }}"
+      - log: "Keyword1: {{ keyword1 }}"
+      - log: "Keyword2: {{ keyword2 }}"
