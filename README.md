@@ -37,6 +37,19 @@ This folder contains **performance testing scenarios**.
 - Tests are written in **.yml format**
 - Includes basic load and performance test practices
 
+## 🔁 CI/CD Workflow
+
+- CI/CD pipeline implemented using **GitHub Actions**
+- Workflow file: `.github/workflows/test.yml`
+- Automatically runs **Cypress-based UI and API tests**
+- Triggered on:
+  - push to `main`
+  - pull requests
+  - scheduled runs
+  - manual execution
+
+> Note: Performance test scenarios are not included in this workflow.
+
 ## 🛠 Technologies & Tools
 - Javascript
 - Cypress
